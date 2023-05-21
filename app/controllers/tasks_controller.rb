@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     if @task.save
       render json: @task, status: :created
     else
-      render json: @task.error, status: :unprocessable_entity
+      render json: @task.errors, status: :unprocessable_entity
     end
   end
 
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       render json: @task
     else
-      render json @task.error, status: :unprocessable_entity
+      render json: @task.errors, status: :unprocessable_entity
     end
   end
 
