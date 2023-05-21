@@ -1,44 +1,43 @@
 class TasksController < ApplicationController
-    before_action :set_task, only: [:show, :update, :destroy]
-def index 
+  before_action :set_task, only: %i[show update destroy]
+  def index
     @tasks = Task.all
     render json: @tasks
-end
+  end
 
-def show 
+  def show
     render json: @task
-end
+  end
 
-def create 
+  def create
     @task = Task.new(task_params)
     if @task.save
-        render json: @task, status: :created
-    else 
-        render json: @task.error, status: :unprocessable_entity
+      render json: @task, status: :created
+    else
+      render json: @task.error, status: :unprocessable_entity
     end
+  end
 
-end
-
-def update 
+  def update
     if @task.update(task_params)
-        render json: @task
-    else 
-        render json @task.error, status: :unprocessable_entity
+      render json: @task
+    else
+      render json @task.error, status: :unprocessable_entity
     end
-end
+  end
 
-def destroy
-    if @task.destroy
-        head :no_content;
-    end
+  def destroy
+    return unless @task.destroy
 
-end
+    head :no_content
+  end
 
-  private 
+  private
+
   def set_task
     @task = Task.find(params[:id])
   end
-  
+
   def task_params
     params.require(:task).permit(:title, :completed)
   end
