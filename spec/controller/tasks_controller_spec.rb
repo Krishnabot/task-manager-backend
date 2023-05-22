@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TasksController, type: :controller do
+RSpec.describe Api::V1::TasksController, type: :controller do
   describe 'GET #index' do
     it 'returns a success response' do
       get :index
